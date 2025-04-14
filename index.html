@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Flashcards App</h1>
+        <p>Create and manage your flashcard sets. Review to master any topic!</p>
+
+        <h2>Your Flashcard Sets</h2>
+        {% if flashcard_sets %}
+            <div class="flashcard-sets">
+                {% for set_name, cards in flashcard_sets.items() %}
+                    <div class="flashcard-set">
+                        <h3>{{ set_name }}</h3>
+                        <a href="{{ url_for('review_flashcards', set_name=set_name) }}" class="btn">Review Set</a>
+                        <a href="{{ url_for('add_flashcards', set_name=set_name) }}" class="btn">Add Flashcards</a>
+                        <form action="{{ url_for('delete_flashcard_set', set_name=set_name) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn delete-btn">Delete Set</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No flashcard sets yet. Create one!</p>
+        {% endif %}
+
+        <a href="{{ url_for('create_flashcard_set') }}" class="btn">Create New Flashcard Set</a>
+    </div>
+</body>
+</html>

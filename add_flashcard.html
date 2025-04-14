@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Flashcards</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Add Flashcards to {{ set_name }}</h1>
+        <form method="POST">
+            <label for="question">Question:</label>
+            <textarea id="question" name="question" required></textarea>
+            <label for="answer">Answer:</label>
+            <textarea id="answer" name="answer" required></textarea>
+            <button type="submit">Add Flashcard</button>
+        </form>
+        <br>
+        <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
+        <a href="{{ url_for('review_flashcards', set_name=set_name) }}" class="btn">Review Flashcards</a>
+    </div>
+</body>
+</html>

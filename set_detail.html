@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ set_name }} - Add Flashcards</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>{{ set_name }} - Add Flashcards</h2>
+        <form method="POST">
+            <input type="text" name="question" placeholder="Question" required>
+            <input type="text" name="answer" placeholder="Answer" required>
+            <button type="submit" class="btn">Add</button>
+        </form>
+
+        <h3>Flashcards in this set:</h3>
+        <ul>
+            {% for card in cards %}
+                <li><strong>Q:</strong> {{ card.question }}<br><strong>A:</strong> {{ card.answer }}</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Flashcards</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Review: {{ set_name }}</h1>
+        
+        <div class="progress-bar">
+            <div class="progress-bar-fill" style="width: 0%"></div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value correct-count">0</div>
+                <div class="stat-label">Correct</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value incorrect-count">0</div>
+                <div class="stat-label">Incorrect</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">{{ flashcards|length }}</div>
+                <div class="stat-label">Total Cards</div>
+            </div>
+        </div>
+
+        <div class="flashcards-container">
+            {% if flashcards %}
+                {% for flashcard in flashcards %}
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <p>{{ flashcard['question'] }}</p>
+                            </div>
+                            <div class="flashcard-back">
+                                <p>{{ flashcard['answer'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No flashcards in this set yet. <a href="{{ url_for('add_flashcards', set_name=set_name) }}" class="btn">Add some!</a></p>
+            {% endif %}
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="previousCard()">Previous</button>
+            <button class="btn" onclick="flipCurrentCard()">Flip Card</button>
+            <button class="btn" onclick="nextCard()">Next</button>
+        </div>
+
+        <div class="keyboard-shortcuts">
+            <h3>Keyboard Shortcuts</h3>
+            <ul>
+                <li><kbd>Space</kbd> or <kbd>Enter</kbd> - Flip card</li>
+                <li><kbd>→</kbd> or <kbd>N</kbd> - Next card</li>
+                <li><kbd>←</kbd> or <kbd>P</kbd> - Previous card</li>
+                <li><kbd>1</kbd> - Mark as correct</li>
+                <li><kbd>0</kbd> - Mark as incorrect</li>
+            </ul>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
